@@ -1,74 +1,62 @@
-# digi-rawr
-# React + TypeScript + Vite
+# 📸 DigiRawr: Y2K & Digicam Photo Editor
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![DigiRawr Banner](https://img.shields.io/badge/Style-Y2K%20%7C%20Goth%20%7C%20Emo-ff00ff?style=for-the-badge)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+![Tech](https://img.shields.io/badge/Tech-React%20%2B%20Vite%20%2B%20Tailwind-blue?style=for-the-badge)
 
-Currently, two official plugins are available:
+**DigiRawr** is a retro-inspired photo editing web application that brings back the aesthetic of early 2000s digital cameras, goth subculture, and emo vibes. Transform your modern photos into nostalgic masterpieces with custom filters, grain, and stickers.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## React Compiler
+- **Retro Presets**: Instantly apply styles like *Digicam*, *Y2K Aesthetic*, *Goth Dark*, *Emo Purple*, and *Glitch Core*.
+- **Advanced Adjustments**: Fine-tune brightness, contrast, saturation, hue, and more.
+- **Lo-Fi Effects**: Add film grain, vignette, RGB split, and pixelation for that authentic vintage look.
+- **Sticker Pack**: Decorate your edits with a curated collection of Y2K and Goth-themed emojis and stickers.
+- **Real-time Canvas Rendering**: High-performance image processing using HTML5 Canvas.
+- **Responsive Design**: Edit on the go with a mobile-friendly interface.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🚀 Live Demo
 
-## Expanding the ESLint configuration
+Check out the live version here: [MahanKenway.github.io/digi-rawr](https://MahanKenway.github.io/digi-rawr/)
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## 🛠️ Tech Stack
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- **Framework**: [React 19](https://react.dev/)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Styling**: [Tailwind CSS 4](https://tailwindcss.com/)
+- **Icons**: [Lucide React](https://lucide.dev/)
+- **Animations**: [Framer Motion](https://www.framer.com/motion/)
+- **Language**: TypeScript
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 🕹️ Getting Started
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Prerequisites
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- Node.js (v18 or higher)
+- pnpm (recommended) or npm
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Installation
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/MahanKenway/digi-rawr.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd digi-rawr
+   ```
+3. Install dependencies:
+   ```bash
+   pnpm install
+   ```
+4. Start the development server:
+   ```bash
+   pnpm run dev
+   ```
+
+## 📜 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+*Created with 🖤 by MahanKenway. Stay Rawr!*
