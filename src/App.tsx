@@ -185,7 +185,7 @@ function App() {
         )
         const v = effects.vignette / 100
         gradient.addColorStop(0, 'rgba(0,0,0,0)')
-        gradient.addColorStop(1, \`rgba(0,0,0,\${v})\`)
+        gradient.addColorStop(1, `rgba(0,0,0,${v})`)
         ctx.fillStyle = gradient
         ctx.fillRect(0, 0, canvas.width, canvas.height)
       }
@@ -353,7 +353,7 @@ function App() {
               </button>
               <button 
                 onClick={() => setActiveTab('stickers')}
-                className={\`flex-1 py-3 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-95 \${activeTab === 'stickers' ? 'bg-pink-500/20 border-pink-400 text-pink-400' : 'bg-white/5 border-white/10 text-white/70'}\`}
+                className={`flex-1 py-3 rounded-lg flex items-center justify-center gap-2 transition-all active:scale-95 ${activeTab === 'stickers' ? 'bg-pink-500/20 border-pink-400 text-pink-400' : 'bg-white/5 border-white/10 text-white/70'}`}
               >
                 <Sticker size={16} />
                 <span className="text-[10px] font-bold uppercase tracking-widest">Stickers</span>
@@ -379,19 +379,19 @@ function App() {
             <div className="flex border-b border-white/5">
               <button 
                 onClick={() => setActiveTab('filters')}
-                className={\`flex-1 py-4 text-[10px] font-bold uppercase tracking-widest transition-all \${activeTab === 'filters' ? 'text-cyan-400 border-b-2 border-cyan-400 bg-cyan-400/5' : 'text-white/30 hover:text-white/60'}\`}
+                className={`flex-1 py-4 text-[10px] font-bold uppercase tracking-widest transition-all ${activeTab === 'filters' ? 'text-cyan-400 border-b-2 border-cyan-400 bg-cyan-400/5' : 'text-white/30 hover:text-white/60'}`}
               >
                 Presets
               </button>
               <button 
                 onClick={() => setActiveTab('adjust')}
-                className={\`flex-1 py-4 text-[10px] font-bold uppercase tracking-widest transition-all \${activeTab === 'adjust' ? 'text-cyan-400 border-b-2 border-cyan-400 bg-cyan-400/5' : 'text-white/30 hover:text-white/60'}\`}
+                className={`flex-1 py-4 text-[10px] font-bold uppercase tracking-widest transition-all ${activeTab === 'adjust' ? 'text-cyan-400 border-b-2 border-cyan-400 bg-cyan-400/5' : 'text-white/30 hover:text-white/60'}`}
               >
                 Adjust
               </button>
               <button 
                 onClick={() => setActiveTab('effects')}
-                className={\`flex-1 py-4 text-[10px] font-bold uppercase tracking-widest transition-all \${activeTab === 'effects' ? 'text-cyan-400 border-b-2 border-cyan-400 bg-cyan-400/5' : 'text-white/30 hover:text-white/60'}\`}
+                className={`flex-1 py-4 text-[10px] font-bold uppercase tracking-widest transition-all ${activeTab === 'effects' ? 'text-cyan-400 border-b-2 border-cyan-400 bg-cyan-400/5' : 'text-white/30 hover:text-white/60'}`}
               >
                 FX
               </button>
