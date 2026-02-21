@@ -21,6 +21,10 @@ interface FilterSettings {
   tint: number
   vibrance: number
   sharpness: number
+  highlights: number
+  shadows: number
+  fade: number
+  gamma: number
 }
 
 interface RGBShift {
@@ -55,63 +59,63 @@ interface Preset {
 const PRESETS: Preset[] = [
   {
     name: 'Normal',
-    settings: { brightness: 100, contrast: 100, saturation: 100, hue: 0, blur: 0, grayscale: 0, sepia: 0, invert: 0 },
+    settings: { brightness: 100, contrast: 100, saturation: 100, hue: 0, blur: 0, grayscale: 0, sepia: 0, invert: 0, gamma: 100 },
     rgbShift: { r: 0, g: 0, b: 0 },
     effects: { grain: 0, vignette: 0, rgbSplit: 0, pixelate: 0 },
     style: 'normal'
   },
   {
     name: 'Digicam',
-    settings: { brightness: 105, contrast: 110, saturation: 85, hue: 0, blur: 0, grayscale: 0, sepia: 10, invert: 0 },
+    settings: { brightness: 105, contrast: 110, saturation: 85, hue: 0, blur: 0, grayscale: 0, sepia: 10, invert: 0, fade: 10, shadows: 12, gamma: 95 },
     rgbShift: { r: 5, g: 0, b: -5 },
     effects: { grain: 30, vignette: 40, rgbSplit: 10, pixelate: 0 },
     style: 'y2k'
   },
   {
     name: 'Y2K Aesthetic',
-    settings: { brightness: 115, contrast: 120, saturation: 130, hue: 10, blur: 0, grayscale: 0, sepia: 0, invert: 0 },
+    settings: { brightness: 115, contrast: 120, saturation: 130, hue: 10, blur: 0, grayscale: 0, sepia: 0, invert: 0, highlights: 16, gamma: 110 },
     rgbShift: { r: 10, g: -5, b: 10 },
     effects: { grain: 15, vignette: 0, rgbSplit: 25, pixelate: 0 },
     style: 'y2k'
   },
   {
     name: 'Goth Dark',
-    settings: { brightness: 70, contrast: 140, saturation: 40, hue: 0, blur: 0, grayscale: 30, sepia: 0, invert: 0 },
+    settings: { brightness: 70, contrast: 140, saturation: 40, hue: 0, blur: 0, grayscale: 30, sepia: 0, invert: 0, shadows: -25, highlights: -10, gamma: 85 },
     rgbShift: { r: -10, g: -10, b: 5 },
     effects: { grain: 50, vignette: 80, rgbSplit: 0, pixelate: 0 },
     style: 'goth'
   },
   {
     name: 'Goth Noir',
-    settings: { brightness: 60, contrast: 150, saturation: 0, hue: 0, blur: 1, grayscale: 100, sepia: 0, invert: 0 },
+    settings: { brightness: 60, contrast: 150, saturation: 0, hue: 0, blur: 1, grayscale: 100, sepia: 0, invert: 0, shadows: -30, fade: 8, gamma: 80 },
     rgbShift: { r: 0, g: 0, b: 0 },
     effects: { grain: 60, vignette: 90, rgbSplit: 0, pixelate: 0 },
     style: 'goth'
   },
   {
     name: 'Emo Purple',
-    settings: { brightness: 90, contrast: 110, saturation: 120, hue: 45, blur: 0, grayscale: 0, sepia: 0, invert: 0 },
+    settings: { brightness: 90, contrast: 110, saturation: 120, hue: 45, blur: 0, grayscale: 0, sepia: 0, invert: 0, vibrance: 20, highlights: 10, gamma: 105 },
     rgbShift: { r: 20, g: -10, b: 30 },
     effects: { grain: 35, vignette: 50, rgbSplit: 15, pixelate: 0 },
     style: 'emo'
   },
   {
     name: 'Emo Red',
-    settings: { brightness: 85, contrast: 130, saturation: 90, hue: 180, blur: 0, grayscale: 10, sepia: 30, invert: 0 },
+    settings: { brightness: 85, contrast: 130, saturation: 90, hue: 180, blur: 0, grayscale: 10, sepia: 30, invert: 0, temperature: 15, shadows: 10, gamma: 90 },
     rgbShift: { r: 30, g: -20, b: -20 },
     effects: { grain: 40, vignette: 60, rgbSplit: 20, pixelate: 0 },
     style: 'emo'
   },
   {
     name: 'Glitch Core',
-    settings: { brightness: 100, contrast: 125, saturation: 150, hue: 5, blur: 0, grayscale: 0, sepia: 0, invert: 5 },
+    settings: { brightness: 100, contrast: 125, saturation: 150, hue: 5, blur: 0, grayscale: 0, sepia: 0, invert: 5, vibrance: 30, sharpness: 20, highlights: 14, gamma: 120 },
     rgbShift: { r: 15, g: 0, b: -15 },
     effects: { grain: 20, vignette: 0, rgbSplit: 50, pixelate: 2 },
     style: 'y2k'
   },
   {
     name: 'Pixel Dreams',
-    settings: { brightness: 110, contrast: 105, saturation: 110, hue: 0, blur: 0, grayscale: 0, sepia: 0, invert: 0 },
+    settings: { brightness: 110, contrast: 105, saturation: 110, hue: 0, blur: 0, grayscale: 0, sepia: 0, invert: 0, fade: 20, highlights: 8, gamma: 112 },
     rgbShift: { r: 0, g: 0, b: 0 },
     effects: { grain: 10, vignette: 20, rgbSplit: 0, pixelate: 8 },
     style: 'y2k'
@@ -159,7 +163,11 @@ const DEFAULT_FILTERS: FilterSettings = {
   temperature: 0,
   tint: 0,
   vibrance: 0,
-  sharpness: 0
+  sharpness: 0,
+  highlights: 0,
+  shadows: 0,
+  fade: 0,
+  gamma: 100
 }
 
 const FILTER_SLIDER_CONFIG: Record<keyof FilterSettings, { label: string; min: number; max: number; unit: string }> = {
@@ -175,8 +183,32 @@ const FILTER_SLIDER_CONFIG: Record<keyof FilterSettings, { label: string; min: n
   temperature: { label: 'Temperature', min: -100, max: 100, unit: '' },
   tint: { label: 'Tint', min: -100, max: 100, unit: '' },
   vibrance: { label: 'Vibrance', min: -100, max: 100, unit: '' },
-  sharpness: { label: 'Sharpness', min: 0, max: 100, unit: '%' }
+  sharpness: { label: 'Sharpness', min: 0, max: 100, unit: '%' },
+  highlights: { label: 'Highlights', min: -100, max: 100, unit: '' },
+  shadows: { label: 'Shadows', min: -100, max: 100, unit: '' },
+  fade: { label: 'Fade', min: 0, max: 100, unit: '%' },
+  gamma: { label: 'Gamma', min: 20, max: 250, unit: '%' }
 }
+
+const FILTER_ORDER: (keyof FilterSettings)[] = [
+  'brightness',
+  'contrast',
+  'saturation',
+  'vibrance',
+  'exposure',
+  'gamma',
+  'hue',
+  'temperature',
+  'tint',
+  'highlights',
+  'shadows',
+  'fade',
+  'sharpness',
+  'grayscale',
+  'sepia',
+  'invert',
+  'blur'
+]
 
 const clamp = (value: number, min = 0, max = 255) => Math.max(min, Math.min(max, value))
 
@@ -293,13 +325,13 @@ function App() {
       scale: 1,
       rotation: 0
     }
-    setStickers([...stickers, newSticker])
+    setStickers((prev) => [...prev, newSticker])
     setShowStickerPanel(false)
   }
 
   // Remove sticker
   const removeSticker = (id: string) => {
-    setStickers(stickers.filter(s => s.id !== id))
+    setStickers((prev) => prev.filter(s => s.id !== id))
     if (selectedSticker === id) setSelectedSticker(null)
     if (draggedSticker === id) setDraggedSticker(null)
   }
@@ -369,6 +401,12 @@ function App() {
         r *= exposureFactor
         g *= exposureFactor
         b *= exposureFactor
+
+        // Gamma
+        const gamma = Math.max(0.2, filters.gamma / 100)
+        r = 255 * Math.pow(clamp(r) / 255, 1 / gamma)
+        g = 255 * Math.pow(clamp(g) / 255, 1 / gamma)
+        b = 255 * Math.pow(clamp(b) / 255, 1 / gamma)
         
         // Contrast
         const contrastFactor = (filters.contrast / 100) * (filters.contrast / 100)
@@ -401,6 +439,31 @@ function App() {
 
         // Hue
         ;[r, g, b] = applyHueShift(r, g, b, filters.hue)
+
+        // Highlights / shadows tone mapping
+        const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b
+        if (filters.highlights !== 0 && luminance > 127) {
+          const weight = (luminance - 127) / 128
+          const amount = filters.highlights / 100
+          r += amount * weight * (amount > 0 ? (255 - r) : r)
+          g += amount * weight * (amount > 0 ? (255 - g) : g)
+          b += amount * weight * (amount > 0 ? (255 - b) : b)
+        }
+        if (filters.shadows !== 0 && luminance < 128) {
+          const weight = (128 - luminance) / 128
+          const amount = filters.shadows / 100
+          r += amount * weight * (amount > 0 ? (255 - r) : r)
+          g += amount * weight * (amount > 0 ? (255 - g) : g)
+          b += amount * weight * (amount > 0 ? (255 - b) : b)
+        }
+
+        // Fade
+        if (filters.fade > 0) {
+          const fadeStrength = filters.fade / 100
+          r = r * (1 - fadeStrength) + 220 * fadeStrength
+          g = g * (1 - fadeStrength) + 220 * fadeStrength
+          b = b * (1 - fadeStrength) + 220 * fadeStrength
+        }
         
         // Grayscale
         if (filters.grayscale > 0) {
@@ -531,7 +594,7 @@ function App() {
     if (!draggedSticker || !canvasRef.current) return
     const { x, y } = getCanvasPoint(e)
     
-    setStickers(stickers.map(s => 
+    setStickers((prev) => prev.map(s => 
       s.id === draggedSticker ? { ...s, x, y } : s
     ))
   }
@@ -561,7 +624,7 @@ function App() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!selectedSticker) return
       
-      setStickers(stickers.map(s => {
+      setStickers((prev) => prev.map(s => {
         if (s.id !== selectedSticker) return s
         
         switch(e.key) {
@@ -601,7 +664,7 @@ function App() {
     
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [selectedSticker, stickers])
+  }, [selectedSticker])
 
   return (
     <div className="min-h-screen p-2 md:p-4" style={{ background: 'linear-gradient(135deg, #008080 0%, #006666 100%)' }}>
@@ -793,29 +856,26 @@ function App() {
                 {/* Adjust Tab */}
                 {activeTab === 'adjust' && (
                   <div className="space-y-4">
-                    {Object.entries(filters).map(([key, value]) => (
-                      <div key={key}>
-                        {(() => {
-                          const config = FILTER_SLIDER_CONFIG[key as keyof FilterSettings]
-                          return (
-                            <>
-                        <div className="flex justify-between text-xs mb-1">
-                          <span>{config.label}</span>
-                          <span>{value}{config.unit}</span>
+                    {FILTER_ORDER.map((key) => {
+                      const value = filters[key]
+                      const config = FILTER_SLIDER_CONFIG[key]
+                      return (
+                        <div key={key}>
+                          <div className="flex justify-between text-xs mb-1">
+                            <span>{config.label}</span>
+                            <span>{value}{config.unit}</span>
+                          </div>
+                          <input
+                            type="range"
+                            className="win98-slider"
+                            min={config.min}
+                            max={config.max}
+                            value={value}
+                            onChange={(e) => setFilters({ ...filters, [key]: Number(e.target.value) })}
+                          />
                         </div>
-                        <input
-                          type="range"
-                          className="win98-slider"
-                          min={config.min}
-                          max={config.max}
-                          value={value}
-                          onChange={(e) => setFilters({...filters, [key]: Number(e.target.value)})}
-                        />
-                            </>
-                          )
-                        })()}
-                      </div>
-                    ))}
+                      )
+                    })}
                     
                     <div className="win98-separator" />
                     
