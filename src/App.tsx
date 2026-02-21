@@ -16,6 +16,11 @@ interface FilterSettings {
   grayscale: number
   sepia: number
   invert: number
+  exposure: number
+  temperature: number
+  tint: number
+  vibrance: number
+  sharpness: number
 }
 
 interface RGBShift {
@@ -141,6 +146,54 @@ const STICKERS = [
   { emoji: '⚔️', name: 'Swords' },
 ]
 
+const DEFAULT_FILTERS: FilterSettings = {
+  brightness: 100,
+  contrast: 100,
+  saturation: 100,
+  hue: 0,
+  blur: 0,
+  grayscale: 0,
+  sepia: 0,
+  invert: 0,
+  exposure: 0,
+  temperature: 0,
+  tint: 0,
+  vibrance: 0,
+  sharpness: 0
+}
+
+const FILTER_SLIDER_CONFIG: Record<keyof FilterSettings, { label: string; min: number; max: number; unit: string }> = {
+  brightness: { label: 'Brightness', min: 0, max: 200, unit: '%' },
+  contrast: { label: 'Contrast', min: 0, max: 200, unit: '%' },
+  saturation: { label: 'Saturation', min: 0, max: 200, unit: '%' },
+  hue: { label: 'Hue', min: -180, max: 180, unit: '°' },
+  blur: { label: 'Blur', min: 0, max: 20, unit: 'px' },
+  grayscale: { label: 'Grayscale', min: 0, max: 100, unit: '%' },
+  sepia: { label: 'Sepia', min: 0, max: 100, unit: '%' },
+  invert: { label: 'Invert', min: 0, max: 100, unit: '%' },
+  exposure: { label: 'Exposure', min: -100, max: 100, unit: '' },
+  temperature: { label: 'Temperature', min: -100, max: 100, unit: '' },
+  tint: { label: 'Tint', min: -100, max: 100, unit: '' },
+  vibrance: { label: 'Vibrance', min: -100, max: 100, unit: '' },
+  sharpness: { label: 'Sharpness', min: 0, max: 100, unit: '%' }
+}
+
+const clamp = (value: number, min = 0, max = 255) => Math.max(min, Math.min(max, value))
+
+const applyHueShift = (r: number, g: number, b: number, hueDeg: number) => {
+  if (hueDeg === 0) return [r, g, b] as const
+
+  const angle = (hueDeg * Math.PI) / 180
+  const cosA = Math.cos(angle)
+  const sinA = Math.sin(angle)
+
+  return [
+    clamp((0.213 + cosA * 0.787 - sinA * 0.213) * r + (0.715 - cosA * 0.715 - sinA * 0.715) * g + (0.072 - cosA * 0.072 + sinA * 0.928) * b),
+    clamp((0.213 - cosA * 0.213 + sinA * 0.143) * r + (0.715 + cosA * 0.285 + sinA * 0.140) * g + (0.072 - cosA * 0.072 - sinA * 0.283) * b),
+    clamp((0.213 - cosA * 0.213 - sinA * 0.787) * r + (0.715 - cosA * 0.715 + sinA * 0.715) * g + (0.072 + cosA * 0.928 + sinA * 0.072) * b)
+  ] as const
+}
+
 function App() {
   // State
   const [originalImage, setOriginalImage] = useState<string | null>(null)
@@ -152,16 +205,7 @@ function App() {
   const [draggedSticker, setDraggedSticker] = useState<string | null>(null)
   
   // Filter settings
-  const [filters, setFilters] = useState<FilterSettings>({
-    brightness: 100,
-    contrast: 100,
-    saturation: 100,
-    hue: 0,
-    blur: 0,
-    grayscale: 0,
-    sepia: 0,
-    invert: 0
-  })
+  const [filters, setFilters] = useState<FilterSettings>(DEFAULT_FILTERS)
   
   // RGB Shift
   const [rgbShift, setRgbShift] = useState<RGBShift>({ r: 0, g: 0, b: 0 })
@@ -178,6 +222,7 @@ function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const dropZoneRef = useRef<HTMLDivElement>(null)
+  const stickerIdRef = useRef(0)
 
   // Handle file upload
   const handleFileUpload = (file: File) => {
@@ -211,33 +256,37 @@ function App() {
   // Apply preset
   const applyPreset = (preset: Preset) => {
     setSelectedPreset(preset.name)
-    setFilters(prev => ({ ...prev, ...preset.settings }))
+    setFilters({ ...DEFAULT_FILTERS, ...preset.settings })
     if (preset.rgbShift) setRgbShift(preset.rgbShift)
     if (preset.effects) setEffects(preset.effects)
   }
 
   // Reset filters
   const resetFilters = () => {
-    setFilters({
-      brightness: 100,
-      contrast: 100,
-      saturation: 100,
-      hue: 0,
-      blur: 0,
-      grayscale: 0,
-      sepia: 0,
-      invert: 0
-    })
+    setFilters(DEFAULT_FILTERS)
     setRgbShift({ r: 0, g: 0, b: 0 })
     setEffects({ grain: 0, vignette: 0, rgbSplit: 0, pixelate: 0 })
     setStickers([])
     setSelectedPreset('Normal')
   }
 
+  const getCanvasPoint = (e: React.MouseEvent) => {
+    if (!canvasRef.current) return { x: 0, y: 0 }
+    const rect = canvasRef.current.getBoundingClientRect()
+    const scaleX = canvasRef.current.width / rect.width
+    const scaleY = canvasRef.current.height / rect.height
+
+    return {
+      x: (e.clientX - rect.left) * scaleX,
+      y: (e.clientY - rect.top) * scaleY
+    }
+  }
+
   // Add sticker
   const addSticker = (emoji: string) => {
+    stickerIdRef.current += 1
     const newSticker: StickerData = {
-      id: Date.now().toString(),
+      id: `sticker-${stickerIdRef.current}`,
       emoji,
       x: 150,
       y: 150,
@@ -251,6 +300,8 @@ function App() {
   // Remove sticker
   const removeSticker = (id: string) => {
     setStickers(stickers.filter(s => s.id !== id))
+    if (selectedSticker === id) setSelectedSticker(null)
+    if (draggedSticker === id) setDraggedSticker(null)
   }
 
   // Download image
@@ -312,6 +363,12 @@ function App() {
         r *= filters.brightness / 100
         g *= filters.brightness / 100
         b *= filters.brightness / 100
+
+        // Exposure
+        const exposureFactor = Math.pow(2, filters.exposure / 100)
+        r *= exposureFactor
+        g *= exposureFactor
+        b *= exposureFactor
         
         // Contrast
         const contrastFactor = (filters.contrast / 100) * (filters.contrast / 100)
@@ -324,6 +381,26 @@ function App() {
         r = gray + (r - gray) * (filters.saturation / 100)
         g = gray + (g - gray) * (filters.saturation / 100)
         b = gray + (b - gray) * (filters.saturation / 100)
+
+        // Vibrance
+        if (filters.vibrance !== 0) {
+          const max = Math.max(r, g, b)
+          const avg = (r + g + b) / 3
+          const amount = ((Math.abs(max - avg) * 2) / 255) * (filters.vibrance / 100)
+          r += (max - r) * amount
+          g += (max - g) * amount
+          b += (max - b) * amount
+        }
+
+        // Temperature / tint
+        r += filters.temperature * 0.7
+        b -= filters.temperature * 0.7
+        g += filters.tint * 0.5
+        r -= filters.tint * 0.15
+        b -= filters.tint * 0.15
+
+        // Hue
+        ;[r, g, b] = applyHueShift(r, g, b, filters.hue)
         
         // Grayscale
         if (filters.grayscale > 0) {
@@ -357,9 +434,33 @@ function App() {
         }
         
         // Clamp values
-        data[i] = Math.max(0, Math.min(255, r))
-        data[i + 1] = Math.max(0, Math.min(255, g))
-        data[i + 2] = Math.max(0, Math.min(255, b))
+        data[i] = clamp(r)
+        data[i + 1] = clamp(g)
+        data[i + 2] = clamp(b)
+      }
+
+      if (filters.sharpness > 0) {
+        const amount = filters.sharpness / 100
+        const sharpened = new Uint8ClampedArray(data)
+        const width = canvas.width
+        const height = canvas.height
+
+        for (let y = 1; y < height - 1; y++) {
+          for (let x = 1; x < width - 1; x++) {
+            const idx = (y * width + x) * 4
+            const top = idx - width * 4
+            const bottom = idx + width * 4
+            const left = idx - 4
+            const right = idx + 4
+
+            for (let c = 0; c < 3; c++) {
+              const highPass = data[idx + c] * 5 - data[top + c] - data[bottom + c] - data[left + c] - data[right + c]
+              sharpened[idx + c] = clamp(data[idx + c] + (highPass - data[idx + c]) * amount)
+            }
+          }
+        }
+
+        imageData.data.set(sharpened)
       }
       
       ctx.putImageData(imageData, 0, 0)
@@ -428,14 +529,7 @@ function App() {
   // Handle canvas mouse events for dragging
   const handleCanvasMouseMove = (e: React.MouseEvent) => {
     if (!draggedSticker || !canvasRef.current) return
-    
-    const canvas = canvasRef.current
-    const rect = canvas.getBoundingClientRect()
-    const scaleX = canvas.width / rect.width
-    const scaleY = canvas.height / rect.height
-    
-    const x = (e.clientX - rect.left) * scaleX
-    const y = (e.clientY - rect.top) * scaleY
+    const { x, y } = getCanvasPoint(e)
     
     setStickers(stickers.map(s => 
       s.id === draggedSticker ? { ...s, x, y } : s
@@ -444,6 +538,22 @@ function App() {
 
   const handleCanvasMouseUp = () => {
     setDraggedSticker(null)
+  }
+
+  const handleCanvasMouseDown = (e: React.MouseEvent) => {
+    const { x, y } = getCanvasPoint(e)
+    const hitSticker = [...stickers].reverse().find((sticker) => {
+      const hitRadius = 32 * sticker.scale
+      return Math.hypot(sticker.x - x, sticker.y - y) <= hitRadius
+    })
+
+    if (!hitSticker) {
+      setSelectedSticker(null)
+      return
+    }
+
+    setSelectedSticker(hitSticker.id)
+    setDraggedSticker(hitSticker.id)
   }
 
   // Sticker keyboard controls
@@ -482,6 +592,10 @@ function App() {
       
       if (e.key === 'Delete' || e.key === 'Backspace') {
         setSelectedSticker(null)
+      }
+
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+        e.preventDefault()
       }
     }
     
@@ -553,9 +667,9 @@ function App() {
                     ref={canvasRef}
                     className="max-w-full h-auto cursor-crosshair"
                     onMouseMove={handleCanvasMouseMove}
+                    onMouseDown={handleCanvasMouseDown}
                     onMouseUp={handleCanvasMouseUp}
                     onMouseLeave={handleCanvasMouseUp}
-                    onClick={() => setSelectedSticker(null)}
                   />
                   {selectedSticker && (
                     <div className="absolute bottom-2 left-2 right-2 bg-black/70 text-white text-xs p-2 rounded">
@@ -681,18 +795,25 @@ function App() {
                   <div className="space-y-4">
                     {Object.entries(filters).map(([key, value]) => (
                       <div key={key}>
+                        {(() => {
+                          const config = FILTER_SLIDER_CONFIG[key as keyof FilterSettings]
+                          return (
+                            <>
                         <div className="flex justify-between text-xs mb-1">
-                          <span className="capitalize">{key}</span>
-                          <span>{value}{key !== 'hue' && key !== 'blur' ? '%' : key === 'blur' ? 'px' : '°'}</span>
+                          <span>{config.label}</span>
+                          <span>{value}{config.unit}</span>
                         </div>
                         <input
                           type="range"
                           className="win98-slider"
-                          min={key === 'hue' ? -180 : key === 'blur' ? 0 : 0}
-                          max={key === 'hue' ? 180 : key === 'blur' ? 20 : 200}
+                          min={config.min}
+                          max={config.max}
                           value={value}
                           onChange={(e) => setFilters({...filters, [key]: Number(e.target.value)})}
                         />
+                            </>
+                          )
+                        })()}
                       </div>
                     ))}
                     
