@@ -16,6 +16,15 @@ interface FilterSettings {
   grayscale: number
   sepia: number
   invert: number
+  exposure: number
+  temperature: number
+  tint: number
+  vibrance: number
+  sharpness: number
+  highlights: number
+  shadows: number
+  fade: number
+  gamma: number
 }
 
 interface RGBShift {
@@ -43,73 +52,129 @@ interface Preset {
     rgbSplit: number
     pixelate: number
   }
-  style: 'normal' | 'goth' | 'emo' | 'y2k'
+  style: 'normal' | 'goth' | 'emo' | 'y2k' | 'trending' | 'cinematic' | 'film'
 }
 
 // Presets
 const PRESETS: Preset[] = [
   {
     name: 'Normal',
-    settings: { brightness: 100, contrast: 100, saturation: 100, hue: 0, blur: 0, grayscale: 0, sepia: 0, invert: 0 },
+    settings: { brightness: 100, contrast: 100, saturation: 100, hue: 0, blur: 0, grayscale: 0, sepia: 0, invert: 0, gamma: 100 },
     rgbShift: { r: 0, g: 0, b: 0 },
     effects: { grain: 0, vignette: 0, rgbSplit: 0, pixelate: 0 },
     style: 'normal'
   },
   {
     name: 'Digicam',
-    settings: { brightness: 105, contrast: 110, saturation: 85, hue: 0, blur: 0, grayscale: 0, sepia: 10, invert: 0 },
+    settings: { brightness: 105, contrast: 110, saturation: 85, hue: 0, blur: 0, grayscale: 0, sepia: 10, invert: 0, fade: 10, shadows: 12, gamma: 95 },
     rgbShift: { r: 5, g: 0, b: -5 },
     effects: { grain: 30, vignette: 40, rgbSplit: 10, pixelate: 0 },
     style: 'y2k'
   },
   {
     name: 'Y2K Aesthetic',
-    settings: { brightness: 115, contrast: 120, saturation: 130, hue: 10, blur: 0, grayscale: 0, sepia: 0, invert: 0 },
+    settings: { brightness: 115, contrast: 120, saturation: 130, hue: 10, blur: 0, grayscale: 0, sepia: 0, invert: 0, highlights: 16, gamma: 110 },
     rgbShift: { r: 10, g: -5, b: 10 },
     effects: { grain: 15, vignette: 0, rgbSplit: 25, pixelate: 0 },
     style: 'y2k'
   },
   {
     name: 'Goth Dark',
-    settings: { brightness: 70, contrast: 140, saturation: 40, hue: 0, blur: 0, grayscale: 30, sepia: 0, invert: 0 },
+    settings: { brightness: 70, contrast: 140, saturation: 40, hue: 0, blur: 0, grayscale: 30, sepia: 0, invert: 0, shadows: -25, highlights: -10, gamma: 85 },
     rgbShift: { r: -10, g: -10, b: 5 },
     effects: { grain: 50, vignette: 80, rgbSplit: 0, pixelate: 0 },
     style: 'goth'
   },
   {
     name: 'Goth Noir',
-    settings: { brightness: 60, contrast: 150, saturation: 0, hue: 0, blur: 1, grayscale: 100, sepia: 0, invert: 0 },
+    settings: { brightness: 60, contrast: 150, saturation: 0, hue: 0, blur: 1, grayscale: 100, sepia: 0, invert: 0, shadows: -30, fade: 8, gamma: 80 },
     rgbShift: { r: 0, g: 0, b: 0 },
     effects: { grain: 60, vignette: 90, rgbSplit: 0, pixelate: 0 },
     style: 'goth'
   },
   {
     name: 'Emo Purple',
-    settings: { brightness: 90, contrast: 110, saturation: 120, hue: 45, blur: 0, grayscale: 0, sepia: 0, invert: 0 },
+    settings: { brightness: 90, contrast: 110, saturation: 120, hue: 45, blur: 0, grayscale: 0, sepia: 0, invert: 0, vibrance: 20, highlights: 10, gamma: 105 },
     rgbShift: { r: 20, g: -10, b: 30 },
     effects: { grain: 35, vignette: 50, rgbSplit: 15, pixelate: 0 },
     style: 'emo'
   },
   {
     name: 'Emo Red',
-    settings: { brightness: 85, contrast: 130, saturation: 90, hue: 180, blur: 0, grayscale: 10, sepia: 30, invert: 0 },
+    settings: { brightness: 85, contrast: 130, saturation: 90, hue: 180, blur: 0, grayscale: 10, sepia: 30, invert: 0, temperature: 15, shadows: 10, gamma: 90 },
     rgbShift: { r: 30, g: -20, b: -20 },
     effects: { grain: 40, vignette: 60, rgbSplit: 20, pixelate: 0 },
     style: 'emo'
   },
   {
     name: 'Glitch Core',
-    settings: { brightness: 100, contrast: 125, saturation: 150, hue: 5, blur: 0, grayscale: 0, sepia: 0, invert: 5 },
+    settings: { brightness: 100, contrast: 125, saturation: 150, hue: 5, blur: 0, grayscale: 0, sepia: 0, invert: 5, vibrance: 30, sharpness: 20, highlights: 14, gamma: 120 },
     rgbShift: { r: 15, g: 0, b: -15 },
     effects: { grain: 20, vignette: 0, rgbSplit: 50, pixelate: 2 },
     style: 'y2k'
   },
   {
     name: 'Pixel Dreams',
-    settings: { brightness: 110, contrast: 105, saturation: 110, hue: 0, blur: 0, grayscale: 0, sepia: 0, invert: 0 },
+    settings: { brightness: 110, contrast: 105, saturation: 110, hue: 0, blur: 0, grayscale: 0, sepia: 0, invert: 0, fade: 20, highlights: 8, gamma: 112 },
     rgbShift: { r: 0, g: 0, b: 0 },
     effects: { grain: 10, vignette: 20, rgbSplit: 0, pixelate: 8 },
     style: 'y2k'
+  },
+  {
+    name: 'Cyber Fairy',
+    settings: { brightness: 108, contrast: 110, saturation: 130, hue: 12, blur: 0, grayscale: 0, sepia: 0, invert: 0, temperature: -6, tint: 14, vibrance: 28, highlights: 18, shadows: 6, fade: 10, gamma: 110, sharpness: 8, exposure: 4 },
+    rgbShift: { r: 12, g: -2, b: 16 },
+    effects: { grain: 15, vignette: 10, rgbSplit: 12, pixelate: 0 },
+    style: 'trending'
+  },
+  {
+    name: 'Clean Girl Soft',
+    settings: { brightness: 112, contrast: 96, saturation: 104, hue: 0, blur: 0, grayscale: 0, sepia: 3, invert: 0, temperature: 8, tint: 2, vibrance: 10, highlights: 16, shadows: 12, fade: 14, gamma: 108, sharpness: 6, exposure: 6 },
+    rgbShift: { r: 3, g: 2, b: -2 },
+    effects: { grain: 8, vignette: 8, rgbSplit: 0, pixelate: 0 },
+    style: 'trending'
+  },
+  {
+    name: 'Chrome Flash',
+    settings: { brightness: 104, contrast: 142, saturation: 92, hue: -6, blur: 0, grayscale: 6, sepia: 0, invert: 0, temperature: -12, tint: -4, vibrance: 6, highlights: 22, shadows: -8, fade: 2, gamma: 95, sharpness: 28, exposure: 2 },
+    rgbShift: { r: 8, g: 0, b: -8 },
+    effects: { grain: 12, vignette: 20, rgbSplit: 10, pixelate: 0 },
+    style: 'trending'
+  },
+  {
+    name: 'Dark Coquette',
+    settings: { brightness: 86, contrast: 128, saturation: 118, hue: 20, blur: 0, grayscale: 8, sepia: 16, invert: 0, temperature: 12, tint: 18, vibrance: 14, highlights: -6, shadows: -12, fade: 10, gamma: 92, sharpness: 10, exposure: -2 },
+    rgbShift: { r: 18, g: -8, b: 8 },
+    effects: { grain: 26, vignette: 34, rgbSplit: 8, pixelate: 0 },
+    style: 'trending'
+  },
+  {
+    name: 'Cinematic Teal',
+    settings: { brightness: 96, contrast: 122, saturation: 88, hue: -8, blur: 0, grayscale: 2, sepia: 0, invert: 0, exposure: -2, temperature: -10, tint: -8, vibrance: 6, sharpness: 18, highlights: -10, shadows: 12, fade: 4, gamma: 94 },
+    rgbShift: { r: -4, g: 6, b: 14 },
+    effects: { grain: 18, vignette: 22, rgbSplit: 0, pixelate: 0 },
+    style: 'cinematic'
+  },
+  {
+    name: 'Neon Nightdrive',
+    settings: { brightness: 92, contrast: 140, saturation: 135, hue: 16, blur: 0, grayscale: 0, sepia: 0, invert: 0, exposure: -4, temperature: -14, tint: 18, vibrance: 30, sharpness: 24, highlights: 8, shadows: -10, fade: 0, gamma: 98 },
+    rgbShift: { r: 16, g: -6, b: 20 },
+    effects: { grain: 12, vignette: 30, rgbSplit: 14, pixelate: 0 },
+    style: 'cinematic'
+  },
+  {
+    name: 'Disposable Cam 2004',
+    settings: { brightness: 108, contrast: 92, saturation: 95, hue: 4, blur: 0, grayscale: 0, sepia: 12, invert: 0, exposure: 8, temperature: 14, tint: -4, vibrance: -4, sharpness: 0, highlights: 20, shadows: 16, fade: 22, gamma: 112 },
+    rgbShift: { r: 6, g: 2, b: -8 },
+    effects: { grain: 32, vignette: 14, rgbSplit: 0, pixelate: 0 },
+    style: 'film'
+  },
+  {
+    name: 'Matte Film Dust',
+    settings: { brightness: 102, contrast: 88, saturation: 86, hue: -2, blur: 0, grayscale: 6, sepia: 8, invert: 0, exposure: 3, temperature: 6, tint: 0, vibrance: -8, sharpness: 2, highlights: 10, shadows: 22, fade: 28, gamma: 118 },
+    rgbShift: { r: 2, g: 0, b: -2 },
+    effects: { grain: 38, vignette: 10, rgbSplit: 0, pixelate: 0 },
+    style: 'film'
   }
 ]
 
@@ -141,6 +206,82 @@ const STICKERS = [
   { emoji: '⚔️', name: 'Swords' },
 ]
 
+const DEFAULT_FILTERS: FilterSettings = {
+  brightness: 100,
+  contrast: 100,
+  saturation: 100,
+  hue: 0,
+  blur: 0,
+  grayscale: 0,
+  sepia: 0,
+  invert: 0,
+  exposure: 0,
+  temperature: 0,
+  tint: 0,
+  vibrance: 0,
+  sharpness: 0,
+  highlights: 0,
+  shadows: 0,
+  fade: 0,
+  gamma: 100
+}
+
+const FILTER_SLIDER_CONFIG: Record<keyof FilterSettings, { label: string; min: number; max: number; unit: string }> = {
+  brightness: { label: 'Brightness', min: 0, max: 200, unit: '%' },
+  contrast: { label: 'Contrast', min: 0, max: 200, unit: '%' },
+  saturation: { label: 'Saturation', min: 0, max: 200, unit: '%' },
+  hue: { label: 'Hue', min: -180, max: 180, unit: '°' },
+  blur: { label: 'Blur', min: 0, max: 20, unit: 'px' },
+  grayscale: { label: 'Grayscale', min: 0, max: 100, unit: '%' },
+  sepia: { label: 'Sepia', min: 0, max: 100, unit: '%' },
+  invert: { label: 'Invert', min: 0, max: 100, unit: '%' },
+  exposure: { label: 'Exposure', min: -100, max: 100, unit: '' },
+  temperature: { label: 'Temperature', min: -100, max: 100, unit: '' },
+  tint: { label: 'Tint', min: -100, max: 100, unit: '' },
+  vibrance: { label: 'Vibrance', min: -100, max: 100, unit: '' },
+  sharpness: { label: 'Sharpness', min: 0, max: 100, unit: '%' },
+  highlights: { label: 'Highlights', min: -100, max: 100, unit: '' },
+  shadows: { label: 'Shadows', min: -100, max: 100, unit: '' },
+  fade: { label: 'Fade', min: 0, max: 100, unit: '%' },
+  gamma: { label: 'Gamma', min: 20, max: 250, unit: '%' }
+}
+
+const FILTER_ORDER: (keyof FilterSettings)[] = [
+  'brightness',
+  'contrast',
+  'saturation',
+  'vibrance',
+  'exposure',
+  'gamma',
+  'hue',
+  'temperature',
+  'tint',
+  'highlights',
+  'shadows',
+  'fade',
+  'sharpness',
+  'grayscale',
+  'sepia',
+  'invert',
+  'blur'
+]
+
+const clamp = (value: number, min = 0, max = 255) => Math.max(min, Math.min(max, value))
+
+const applyHueShift = (r: number, g: number, b: number, hueDeg: number) => {
+  if (hueDeg === 0) return [r, g, b] as const
+
+  const angle = (hueDeg * Math.PI) / 180
+  const cosA = Math.cos(angle)
+  const sinA = Math.sin(angle)
+
+  return [
+    clamp((0.213 + cosA * 0.787 - sinA * 0.213) * r + (0.715 - cosA * 0.715 - sinA * 0.715) * g + (0.072 - cosA * 0.072 + sinA * 0.928) * b),
+    clamp((0.213 - cosA * 0.213 + sinA * 0.143) * r + (0.715 + cosA * 0.285 + sinA * 0.140) * g + (0.072 - cosA * 0.072 - sinA * 0.283) * b),
+    clamp((0.213 - cosA * 0.213 - sinA * 0.787) * r + (0.715 - cosA * 0.715 + sinA * 0.715) * g + (0.072 + cosA * 0.928 + sinA * 0.072) * b)
+  ] as const
+}
+
 function App() {
   // State
   const [originalImage, setOriginalImage] = useState<string | null>(null)
@@ -152,16 +293,7 @@ function App() {
   const [draggedSticker, setDraggedSticker] = useState<string | null>(null)
   
   // Filter settings
-  const [filters, setFilters] = useState<FilterSettings>({
-    brightness: 100,
-    contrast: 100,
-    saturation: 100,
-    hue: 0,
-    blur: 0,
-    grayscale: 0,
-    sepia: 0,
-    invert: 0
-  })
+  const [filters, setFilters] = useState<FilterSettings>(DEFAULT_FILTERS)
   
   // RGB Shift
   const [rgbShift, setRgbShift] = useState<RGBShift>({ r: 0, g: 0, b: 0 })
@@ -178,6 +310,7 @@ function App() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const dropZoneRef = useRef<HTMLDivElement>(null)
+  const stickerIdRef = useRef(0)
 
   // Handle file upload
   const handleFileUpload = (file: File) => {
@@ -211,46 +344,52 @@ function App() {
   // Apply preset
   const applyPreset = (preset: Preset) => {
     setSelectedPreset(preset.name)
-    setFilters(prev => ({ ...prev, ...preset.settings }))
+    setFilters({ ...DEFAULT_FILTERS, ...preset.settings })
     if (preset.rgbShift) setRgbShift(preset.rgbShift)
     if (preset.effects) setEffects(preset.effects)
   }
 
   // Reset filters
   const resetFilters = () => {
-    setFilters({
-      brightness: 100,
-      contrast: 100,
-      saturation: 100,
-      hue: 0,
-      blur: 0,
-      grayscale: 0,
-      sepia: 0,
-      invert: 0
-    })
+    setFilters(DEFAULT_FILTERS)
     setRgbShift({ r: 0, g: 0, b: 0 })
     setEffects({ grain: 0, vignette: 0, rgbSplit: 0, pixelate: 0 })
     setStickers([])
     setSelectedPreset('Normal')
   }
 
+  const getCanvasPoint = (e: React.MouseEvent) => {
+    if (!canvasRef.current) return { x: 0, y: 0 }
+    const rect = canvasRef.current.getBoundingClientRect()
+    const scaleX = canvasRef.current.width / rect.width
+    const scaleY = canvasRef.current.height / rect.height
+
+    return {
+      x: (e.clientX - rect.left) * scaleX,
+      y: (e.clientY - rect.top) * scaleY
+    }
+  }
+
   // Add sticker
   const addSticker = (emoji: string) => {
+    stickerIdRef.current += 1
     const newSticker: StickerData = {
-      id: Date.now().toString(),
+      id: `sticker-${stickerIdRef.current}`,
       emoji,
       x: 150,
       y: 150,
       scale: 1,
       rotation: 0
     }
-    setStickers([...stickers, newSticker])
+    setStickers((prev) => [...prev, newSticker])
     setShowStickerPanel(false)
   }
 
   // Remove sticker
   const removeSticker = (id: string) => {
-    setStickers(stickers.filter(s => s.id !== id))
+    setStickers((prev) => prev.filter(s => s.id !== id))
+    if (selectedSticker === id) setSelectedSticker(null)
+    if (draggedSticker === id) setDraggedSticker(null)
   }
 
   // Download image
@@ -312,6 +451,18 @@ function App() {
         r *= filters.brightness / 100
         g *= filters.brightness / 100
         b *= filters.brightness / 100
+
+        // Exposure
+        const exposureFactor = Math.pow(2, filters.exposure / 100)
+        r *= exposureFactor
+        g *= exposureFactor
+        b *= exposureFactor
+
+        // Gamma
+        const gamma = Math.max(0.2, filters.gamma / 100)
+        r = 255 * Math.pow(clamp(r) / 255, 1 / gamma)
+        g = 255 * Math.pow(clamp(g) / 255, 1 / gamma)
+        b = 255 * Math.pow(clamp(b) / 255, 1 / gamma)
         
         // Contrast
         const contrastFactor = (filters.contrast / 100) * (filters.contrast / 100)
@@ -324,6 +475,51 @@ function App() {
         r = gray + (r - gray) * (filters.saturation / 100)
         g = gray + (g - gray) * (filters.saturation / 100)
         b = gray + (b - gray) * (filters.saturation / 100)
+
+        // Vibrance
+        if (filters.vibrance !== 0) {
+          const max = Math.max(r, g, b)
+          const avg = (r + g + b) / 3
+          const amount = ((Math.abs(max - avg) * 2) / 255) * (filters.vibrance / 100)
+          r += (max - r) * amount
+          g += (max - g) * amount
+          b += (max - b) * amount
+        }
+
+        // Temperature / tint
+        r += filters.temperature * 0.7
+        b -= filters.temperature * 0.7
+        g += filters.tint * 0.5
+        r -= filters.tint * 0.15
+        b -= filters.tint * 0.15
+
+        // Hue
+        ;[r, g, b] = applyHueShift(r, g, b, filters.hue)
+
+        // Highlights / shadows tone mapping
+        const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b
+        if (filters.highlights !== 0 && luminance > 127) {
+          const weight = (luminance - 127) / 128
+          const amount = filters.highlights / 100
+          r += amount * weight * (amount > 0 ? (255 - r) : r)
+          g += amount * weight * (amount > 0 ? (255 - g) : g)
+          b += amount * weight * (amount > 0 ? (255 - b) : b)
+        }
+        if (filters.shadows !== 0 && luminance < 128) {
+          const weight = (128 - luminance) / 128
+          const amount = filters.shadows / 100
+          r += amount * weight * (amount > 0 ? (255 - r) : r)
+          g += amount * weight * (amount > 0 ? (255 - g) : g)
+          b += amount * weight * (amount > 0 ? (255 - b) : b)
+        }
+
+        // Fade
+        if (filters.fade > 0) {
+          const fadeStrength = filters.fade / 100
+          r = r * (1 - fadeStrength) + 220 * fadeStrength
+          g = g * (1 - fadeStrength) + 220 * fadeStrength
+          b = b * (1 - fadeStrength) + 220 * fadeStrength
+        }
         
         // Grayscale
         if (filters.grayscale > 0) {
@@ -357,9 +553,33 @@ function App() {
         }
         
         // Clamp values
-        data[i] = Math.max(0, Math.min(255, r))
-        data[i + 1] = Math.max(0, Math.min(255, g))
-        data[i + 2] = Math.max(0, Math.min(255, b))
+        data[i] = clamp(r)
+        data[i + 1] = clamp(g)
+        data[i + 2] = clamp(b)
+      }
+
+      if (filters.sharpness > 0) {
+        const amount = filters.sharpness / 100
+        const sharpened = new Uint8ClampedArray(data)
+        const width = canvas.width
+        const height = canvas.height
+
+        for (let y = 1; y < height - 1; y++) {
+          for (let x = 1; x < width - 1; x++) {
+            const idx = (y * width + x) * 4
+            const top = idx - width * 4
+            const bottom = idx + width * 4
+            const left = idx - 4
+            const right = idx + 4
+
+            for (let c = 0; c < 3; c++) {
+              const highPass = data[idx + c] * 5 - data[top + c] - data[bottom + c] - data[left + c] - data[right + c]
+              sharpened[idx + c] = clamp(data[idx + c] + (highPass - data[idx + c]) * amount)
+            }
+          }
+        }
+
+        imageData.data.set(sharpened)
       }
       
       ctx.putImageData(imageData, 0, 0)
@@ -428,16 +648,9 @@ function App() {
   // Handle canvas mouse events for dragging
   const handleCanvasMouseMove = (e: React.MouseEvent) => {
     if (!draggedSticker || !canvasRef.current) return
+    const { x, y } = getCanvasPoint(e)
     
-    const canvas = canvasRef.current
-    const rect = canvas.getBoundingClientRect()
-    const scaleX = canvas.width / rect.width
-    const scaleY = canvas.height / rect.height
-    
-    const x = (e.clientX - rect.left) * scaleX
-    const y = (e.clientY - rect.top) * scaleY
-    
-    setStickers(stickers.map(s => 
+    setStickers((prev) => prev.map(s => 
       s.id === draggedSticker ? { ...s, x, y } : s
     ))
   }
@@ -446,12 +659,28 @@ function App() {
     setDraggedSticker(null)
   }
 
+  const handleCanvasMouseDown = (e: React.MouseEvent) => {
+    const { x, y } = getCanvasPoint(e)
+    const hitSticker = [...stickers].reverse().find((sticker) => {
+      const hitRadius = 32 * sticker.scale
+      return Math.hypot(sticker.x - x, sticker.y - y) <= hitRadius
+    })
+
+    if (!hitSticker) {
+      setSelectedSticker(null)
+      return
+    }
+
+    setSelectedSticker(hitSticker.id)
+    setDraggedSticker(hitSticker.id)
+  }
+
   // Sticker keyboard controls
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!selectedSticker) return
       
-      setStickers(stickers.map(s => {
+      setStickers((prev) => prev.map(s => {
         if (s.id !== selectedSticker) return s
         
         switch(e.key) {
@@ -483,11 +712,15 @@ function App() {
       if (e.key === 'Delete' || e.key === 'Backspace') {
         setSelectedSticker(null)
       }
+
+      if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(e.key)) {
+        e.preventDefault()
+      }
     }
     
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [selectedSticker, stickers])
+  }, [selectedSticker])
 
   return (
     <div className="min-h-screen p-2 md:p-4" style={{ background: 'linear-gradient(135deg, #008080 0%, #006666 100%)' }}>
@@ -553,9 +786,9 @@ function App() {
                     ref={canvasRef}
                     className="max-w-full h-auto cursor-crosshair"
                     onMouseMove={handleCanvasMouseMove}
+                    onMouseDown={handleCanvasMouseDown}
                     onMouseUp={handleCanvasMouseUp}
                     onMouseLeave={handleCanvasMouseUp}
-                    onClick={() => setSelectedSticker(null)}
                   />
                   {selectedSticker && (
                     <div className="absolute bottom-2 left-2 right-2 bg-black/70 text-white text-xs p-2 rounded">
@@ -673,28 +906,71 @@ function App() {
                         {selectedPreset === preset.name && <span>✓</span>}
                       </button>
                     ))}
+
+                    <div className="text-xs font-bold mb-3 mt-4">Trending (TikTok)</div>
+                    {PRESETS.filter(p => p.style === 'trending').map(preset => (
+                      <button
+                        key={preset.name}
+                        className={`win98-btn w-full justify-between ${selectedPreset === preset.name ? 'font-bold' : ''}`}
+                        onClick={() => applyPreset(preset)}
+                      >
+                        <Sparkles size={12} className="mr-2" />
+                        <span className="flex-1 text-left">{preset.name}</span>
+                        {selectedPreset === preset.name && <span>✓</span>}
+                      </button>
+                    ))}
+
+                    <div className="text-xs font-bold mb-3 mt-4">Cinematic</div>
+                    {PRESETS.filter(p => p.style === 'cinematic').map(preset => (
+                      <button
+                        key={preset.name}
+                        className={`win98-btn w-full justify-between ${selectedPreset === preset.name ? 'font-bold' : ''}`}
+                        onClick={() => applyPreset(preset)}
+                      >
+                        <Zap size={12} className="mr-2" />
+                        <span className="flex-1 text-left">{preset.name}</span>
+                        {selectedPreset === preset.name && <span>✓</span>}
+                      </button>
+                    ))}
+
+                    <div className="text-xs font-bold mb-3 mt-4">Film & Disposable</div>
+                    {PRESETS.filter(p => p.style === 'film').map(preset => (
+                      <button
+                        key={preset.name}
+                        className={`win98-btn w-full justify-between ${selectedPreset === preset.name ? 'font-bold' : ''}`}
+                        onClick={() => applyPreset(preset)}
+                      >
+                        <ImageIcon size={12} className="mr-2" />
+                        <span className="flex-1 text-left">{preset.name}</span>
+                        {selectedPreset === preset.name && <span>✓</span>}
+                      </button>
+                    ))}
                   </div>
                 )}
 
                 {/* Adjust Tab */}
                 {activeTab === 'adjust' && (
                   <div className="space-y-4">
-                    {Object.entries(filters).map(([key, value]) => (
-                      <div key={key}>
-                        <div className="flex justify-between text-xs mb-1">
-                          <span className="capitalize">{key}</span>
-                          <span>{value}{key !== 'hue' && key !== 'blur' ? '%' : key === 'blur' ? 'px' : '°'}</span>
+                    {FILTER_ORDER.map((key) => {
+                      const value = filters[key]
+                      const config = FILTER_SLIDER_CONFIG[key]
+                      return (
+                        <div key={key}>
+                          <div className="flex justify-between text-xs mb-1">
+                            <span>{config.label}</span>
+                            <span>{value}{config.unit}</span>
+                          </div>
+                          <input
+                            type="range"
+                            className="win98-slider"
+                            min={config.min}
+                            max={config.max}
+                            value={value}
+                            onChange={(e) => setFilters({ ...filters, [key]: Number(e.target.value) })}
+                          />
                         </div>
-                        <input
-                          type="range"
-                          className="win98-slider"
-                          min={key === 'hue' ? -180 : key === 'blur' ? 0 : 0}
-                          max={key === 'hue' ? 180 : key === 'blur' ? 20 : 200}
-                          value={value}
-                          onChange={(e) => setFilters({...filters, [key]: Number(e.target.value)})}
-                        />
-                      </div>
-                    ))}
+                      )
+                    })}
                     
                     <div className="win98-separator" />
                     
