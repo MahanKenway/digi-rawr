@@ -52,7 +52,7 @@ interface Preset {
     rgbSplit: number
     pixelate: number
   }
-  style: 'normal' | 'goth' | 'emo' | 'y2k'
+  style: 'normal' | 'goth' | 'emo' | 'y2k' | 'trending'
 }
 
 // Presets
@@ -119,6 +119,34 @@ const PRESETS: Preset[] = [
     rgbShift: { r: 0, g: 0, b: 0 },
     effects: { grain: 10, vignette: 20, rgbSplit: 0, pixelate: 8 },
     style: 'y2k'
+  },
+  {
+    name: 'Cyber Fairy',
+    settings: { brightness: 108, contrast: 110, saturation: 130, hue: 12, blur: 0, grayscale: 0, sepia: 0, invert: 0, temperature: -6, tint: 14, vibrance: 28, highlights: 18, shadows: 6, fade: 10, gamma: 110, sharpness: 8, exposure: 4 },
+    rgbShift: { r: 12, g: -2, b: 16 },
+    effects: { grain: 15, vignette: 10, rgbSplit: 12, pixelate: 0 },
+    style: 'trending'
+  },
+  {
+    name: 'Clean Girl Soft',
+    settings: { brightness: 112, contrast: 96, saturation: 104, hue: 0, blur: 0, grayscale: 0, sepia: 3, invert: 0, temperature: 8, tint: 2, vibrance: 10, highlights: 16, shadows: 12, fade: 14, gamma: 108, sharpness: 6, exposure: 6 },
+    rgbShift: { r: 3, g: 2, b: -2 },
+    effects: { grain: 8, vignette: 8, rgbSplit: 0, pixelate: 0 },
+    style: 'trending'
+  },
+  {
+    name: 'Chrome Flash',
+    settings: { brightness: 104, contrast: 142, saturation: 92, hue: -6, blur: 0, grayscale: 6, sepia: 0, invert: 0, temperature: -12, tint: -4, vibrance: 6, highlights: 22, shadows: -8, fade: 2, gamma: 95, sharpness: 28, exposure: 2 },
+    rgbShift: { r: 8, g: 0, b: -8 },
+    effects: { grain: 12, vignette: 20, rgbSplit: 10, pixelate: 0 },
+    style: 'trending'
+  },
+  {
+    name: 'Dark Coquette',
+    settings: { brightness: 86, contrast: 128, saturation: 118, hue: 20, blur: 0, grayscale: 8, sepia: 16, invert: 0, temperature: 12, tint: 18, vibrance: 14, highlights: -6, shadows: -12, fade: 10, gamma: 92, sharpness: 10, exposure: -2 },
+    rgbShift: { r: 18, g: -8, b: 8 },
+    effects: { grain: 26, vignette: 34, rgbSplit: 8, pixelate: 0 },
+    style: 'trending'
   }
 ]
 
@@ -846,6 +874,19 @@ function App() {
                         onClick={() => applyPreset(preset)}
                       >
                         <Heart size={12} className="mr-2" />
+                        <span className="flex-1 text-left">{preset.name}</span>
+                        {selectedPreset === preset.name && <span>✓</span>}
+                      </button>
+                    ))}
+
+                    <div className="text-xs font-bold mb-3 mt-4">Trending (TikTok)</div>
+                    {PRESETS.filter(p => p.style === 'trending').map(preset => (
+                      <button
+                        key={preset.name}
+                        className={`win98-btn w-full justify-between ${selectedPreset === preset.name ? 'font-bold' : ''}`}
+                        onClick={() => applyPreset(preset)}
+                      >
+                        <Sparkles size={12} className="mr-2" />
                         <span className="flex-1 text-left">{preset.name}</span>
                         {selectedPreset === preset.name && <span>✓</span>}
                       </button>
