@@ -1,0 +1,48 @@
+.toolbar {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: linear-gradient(90deg, #000080 0%, #1084d7 100%);
+  border-bottom: 2px solid #dfdfdf;
+  align-items: center;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+}
+
+.toolbar-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 4px 8px;
+  border: 1px solid;
+  border-color: #dfdfdf #808080 #808080 #dfdfdf;
+  background: #c0c0c0;
+  cursor: pointer;
+  color: #000;
+  font-size: 10px;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  transition: all 0.1s;
+  min-width: 50px;
+}
+
+.toolbar-btn:hover {
+  background: #dfdfdf;
+}
+
+.toolbar-btn:active {
+  border-color: #808080 #dfdfdf #dfdfdf #808080;
+}
+
+.toolbar-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.toolbar-separator {
+  width: 1px;
+  height: 24px;
+  background: #808080;
+  margin: 0 4px;
+}

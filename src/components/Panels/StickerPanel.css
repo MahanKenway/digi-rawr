@@ -1,0 +1,36 @@
+.sticker-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+}
+
+.stickers-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+}
+
+.sticker-btn {
+  width: 100%;
+  aspect-ratio: 1;
+  padding: 4px;
+  border: 1px solid;
+  border-color: #dfdfdf #808080 #808080 #dfdfdf;
+  background: #c0c0c0;
+  cursor: pointer;
+  font-size: 24px;
+  transition: all 0.1s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sticker-btn:hover {
+  background: #dfdfdf;
+}
+
+.sticker-btn:active {
+  border-color: #808080 #dfdfdf #dfdfdf #808080;
+}

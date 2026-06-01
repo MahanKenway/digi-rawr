@@ -1,0 +1,93 @@
+.draggable-window {
+  background: linear-gradient(180deg, #000080 0%, #1084d7 100%);
+  border: 2px solid;
+  border-color: #dfdfdf #808080 #808080 #dfdfdf;
+  box-shadow: 1px 1px 0 #ffffff inset, 2px 2px 0 #dfdfdf inset, 1px 1px 0 #808080, 2px 2px 0 #000000;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+  color: #000;
+}
+
+.window-titlebar {
+  background: linear-gradient(90deg, #000080 0%, #1084d7 100%);
+  color: white;
+  padding: 2px 2px 2px 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: move;
+  user-select: none;
+  border-bottom: 1px solid #dfdfdf;
+  min-height: 20px;
+}
+
+.window-title {
+  font-weight: bold;
+  font-size: 11px;
+  flex: 1;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.3);
+}
+
+.window-controls {
+  display: flex;
+  gap: 2px;
+}
+
+.window-btn {
+  width: 16px;
+  height: 14px;
+  padding: 0;
+  margin: 0;
+  border: 1px solid;
+  border-color: #dfdfdf #808080 #808080 #dfdfdf;
+  background: #c0c0c0;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: #000;
+  transition: all 0.1s;
+}
+
+.window-btn:active {
+  border-color: #808080 #dfdfdf #dfdfdf #808080;
+}
+
+.window-btn:hover {
+  background: #dfdfdf;
+}
+
+.close-btn:hover {
+  background: #ff0000;
+  color: white;
+}
+
+.window-content {
+  background: #c0c0c0;
+  padding: 4px;
+  overflow: auto;
+  height: calc(100% - 22px);
+}
+
+/* Scrollbar styling for Windows 95/98 look */
+.window-content::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+.window-content::-webkit-scrollbar-track {
+  background: #c0c0c0;
+  border: 1px solid;
+  border-color: #dfdfdf #808080 #808080 #dfdfdf;
+}
+
+.window-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #dfdfdf 0%, #808080 100%);
+  border: 1px solid;
+  border-color: #dfdfdf #808080 #808080 #dfdfdf;
+}
+
+.window-content::-webkit-scrollbar-corner {
+  background: #c0c0c0;
+}
