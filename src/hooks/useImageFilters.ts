@@ -19,13 +19,21 @@ const DEFAULT_EFFECTS: Effects = {
   grain: 0,
   vignette: 0,
   rgbSplit: 0,
-  pixelate: 0
+  pixelate: 0,
+  bloom: 0,
+  glow: 0
 }
 
 export const useImageFilters = () => {
   const [filters, setFilters] = useState<FilterSettings>(DEFAULT_FILTERS)
   const [rgbShift, setRgbShift] = useState<RGBShift>(DEFAULT_RGB_SHIFT)
   const [effects, setEffects] = useState<Effects>(DEFAULT_EFFECTS)
+  const [dateStamp, setDateStamp] = useState({
+    enabled: false,
+    text: new Date().toLocaleDateString('en-US', { year: '2-digit', month: '2-digit', day: '2-digit' }).replace(/\//g, ' '),
+    color: '#ff6600',
+    position: 'bottom-right' as const
+  })
   const [selectedPreset, setSelectedPreset] = useState<string>('Normal')
 
   const updateFilter = useCallback((key: keyof FilterSettings, value: number) => {
@@ -38,6 +46,10 @@ export const useImageFilters = () => {
 
   const updateEffect = useCallback((key: keyof Effects, value: number) => {
     setEffects(prev => ({ ...prev, [key]: value }))
+  }, [])
+
+  const updateDateStamp = useCallback((updates: Partial<typeof dateStamp>) => {
+    setDateStamp(prev => ({ ...prev, ...updates }))
   }, [])
 
   const applyPreset = useCallback((presetName: string) => {
@@ -61,10 +73,12 @@ export const useImageFilters = () => {
     filters,
     rgbShift,
     effects,
+    dateStamp,
     selectedPreset,
     updateFilter,
     updateRGBShift,
     updateEffect,
+    updateDateStamp,
     applyPreset,
     resetFilters
   }

@@ -21,6 +21,8 @@ export interface Effects {
   vignette: number
   rgbSplit: number
   pixelate: number
+  bloom: number
+  glow: number
 }
 
 export interface Preset {
@@ -81,6 +83,12 @@ export interface EditorState {
   filters: FilterSettings
   rgbShift: RGBShift
   effects: Effects
+  dateStamp: {
+    enabled: boolean
+    text: string
+    color: string
+    position: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left'
+  }
   selectedPreset: string
   stickers: StickerData[]
   textLayers: TextLayer[]
